@@ -1,11 +1,14 @@
 const { hooks } = require("@adonisjs/ignitor");
 
-const LOAD_MANIFEST = (path) => {
+const LOAD_MANIFEST = (filePath) => {
+	const path = require("path");
 	const fs = use("fs");
+
+	filePath = path.join(__dirname, filePath);
 	let manifest = null;
 	try {
-		if (fs.existsSync(path)) manifest = use(path);
-		else console.log(`${path} does not exist`);
+		if (fs.existsSync(filePath)) manifest = use(filePath);
+		else console.log(`${filePath} does not exist`);
 	} catch (err) {
 		manifest = null;
 		console.error(err);
@@ -18,7 +21,7 @@ hooks.after.providersBooted(async () => {
 	const Helpers = use("Helpers");
 	const constants = require("../constants");
 
-	const manifest = LOAD_MANIFEST(Helpers.publicPath("build/manifest.json"));
+	const manifest = LOAD_MANIFEST("../public/build/manifest.json");
 
 	let SCRIPT = `<script type="module" src="http://localhost:3000/@vite/client"></script>
   <script type="module" src="http://localhost:3000/${constants.ENTRY}"></script>`;
