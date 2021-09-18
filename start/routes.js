@@ -13,7 +13,7 @@ Route.any("*", ({ view }) => {
 
 	try {
 		if (isProd) {
-			const constants = use(Helpers.appRoot("constants"));
+			const constants = require("../constants");
 			const manifest = use(Helpers.publicPath("build/manifest.json"));
 			data.manifest = manifest;
 			data.script = `<script type="module" src="/build/${manifest[constants.ENTRY]["file"]}"></script>`;
