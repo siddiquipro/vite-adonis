@@ -1,0 +1,1 @@
+web: cross-env ENV_SILENT=true npm start
