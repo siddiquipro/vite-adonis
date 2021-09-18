@@ -14,8 +14,7 @@ export default ({ command }) => ({
 	plugins: [createVuePlugin()],
 	server: {
 		fs: {
-			// Allow serving files from one level up to the project root
-			allow: [".."],
+			allow: [".."], // Allow serving files from one level up to the project root
 		},
 	},
 });

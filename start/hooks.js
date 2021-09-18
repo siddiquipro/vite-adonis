@@ -1,19 +1,6 @@
 const { hooks } = require("@adonisjs/ignitor");
 const path = require("path");
 
-// const LOAD_MANIFEST = (filePath) => {
-// 	const fs = use("fs");
-// 	let manifest = null;
-// 	try {
-// 		if (fs.existsSync(filePath)) manifest = use(filePath);
-// 		else console.log(`${filePath} does not exist`);
-// 	} catch (err) {
-// 		manifest = null;
-// 		console.error(err);
-// 	}
-// 	return manifest;
-// };
-
 hooks.after.providersBooted(async () => {
 	const View = use("View");
 	const Env = use("Env");
@@ -29,10 +16,8 @@ hooks.after.providersBooted(async () => {
 	const GET_MANIFEST = () => {
 		const node_env = Env.get("NODE_ENV", process.env.NODE_ENV);
 		if (node_env == "development") return false;
-
 		try {
 			const manifest = require(Helpers.publicPath("build/manifest.json"));
-			// const manifest = LOAD_MANIFEST(path.join(__dirname, "..", "public", "build", "manifest.json"));
 			if (manifest) {
 				const manObj = manifest[constants.ENTRY];
 				SCRIPT = `<script type="module" src="/build/${manObj.file}"></script>`;

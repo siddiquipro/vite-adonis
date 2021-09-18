@@ -1,8 +1,8 @@
 {
-  "name": "adonis-fullstack-app",
-  "version": "4.1.0",
+  "name": "viteonisfy",
+  "version": "1.0.0",
   "adonis-version": "4.1.0",
-  "description": "The fullstack application boilerplate for Adonisjs",
+  "description": "Vite + Adonis + Buefy Boilerplate with sass and hot reload",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
