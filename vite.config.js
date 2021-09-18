@@ -1,6 +1,6 @@
 // vite.config.js
 
-// import vue from "@vitejs/plugin-vue";
+import constants from "./constants";
 const { createVuePlugin } = require("vite-plugin-vue2");
 
 export default ({ command }) => ({
@@ -10,7 +10,7 @@ export default ({ command }) => ({
 		manifest: true,
 		outDir: "public/build",
 		rollupOptions: {
-			input: "www/main.js",
+			input: constants.ENTRY, //"www/main.js",
 		},
 	},
 	plugins: [createVuePlugin()],

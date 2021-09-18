@@ -6,9 +6,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "test": "node ace test",
     "dev": "vite",
-    "production": "vite build"
+    "prod": "vite build",
+    "build": "vite build"
   },
   "keywords": [
     "adonisjs",

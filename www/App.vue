@@ -4,7 +4,7 @@
 			<div class="container is-fullhd">
 				<div class="navbar-brand">
 					<a class="navbar-item" href="/">
-						<div class="is-size-4 has-text-weight-bold has-text-info">MAS</div>
+						<div class="is-size-4 has-text-weight-bold has-text-info">Viteonisfy</div>
 					</a>
 
 					<a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
