@@ -1,10 +1,8 @@
 const { hooks } = require("@adonisjs/ignitor");
+const path = require("path");
 
 const LOAD_MANIFEST = (filePath) => {
-	const path = require("path");
 	const fs = use("fs");
-
-	filePath = path.join(__dirname, filePath);
 	let manifest = null;
 	try {
 		if (fs.existsSync(filePath)) manifest = use(filePath);
@@ -18,10 +16,9 @@ const LOAD_MANIFEST = (filePath) => {
 
 hooks.after.providersBooted(async () => {
 	const View = use("View");
-	const Helpers = use("Helpers");
-	const constants = require("../constants");
 
-	const manifest = LOAD_MANIFEST("../public/build/manifest.json");
+	const constants = require(path.join(__dirname, "..", "constants.js"));
+	const manifest = LOAD_MANIFEST(path.join(__dirname, "..", "public", "build", "manifest.json"));
 
 	let SCRIPT = `<script type="module" src="http://localhost:3000/@vite/client"></script>
   <script type="module" src="http://localhost:3000/${constants.ENTRY}"></script>`;
