@@ -14,7 +14,7 @@ Route.any("*", ({ view }) => {
 	try {
 		if (isProd) {
 			const constants = require("../constants");
-			const manifest = use(Helpers.publicPath("build/manifest.json"));
+			const manifest = require("../public/build/manifest.json"); // use(Helpers.publicPath("build/manifest.json"));
 			data.manifest = manifest;
 			data.script = `<script type="module" src="/build/${manifest[constants.ENTRY]["file"]}"></script>`;
 			if (manifest[constants.ENTRY]["css"][0]) data.css = `<link rel="stylesheet" href="/build/${manifest[constants.ENTRY]["css"][0]}">`;
