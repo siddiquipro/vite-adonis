@@ -5,6 +5,7 @@ const LOAD_MANIFEST = (path) => {
 	let manifest = null;
 	try {
 		if (fs.existsSync(path)) manifest = use(path);
+		else console.log(`${path} does not exist`);
 	} catch (err) {
 		manifest = null;
 		console.error(err);
@@ -14,8 +15,10 @@ const LOAD_MANIFEST = (path) => {
 
 hooks.after.providersBooted(async () => {
 	const View = use("View");
+	const Helpers = use("Helpers");
 	const constants = require("../constants");
-	const manifest = LOAD_MANIFEST("../public/build/manifest.json");
+
+	const manifest = LOAD_MANIFEST(Helpers.publicPath("build/manifest.json"));
 
 	let SCRIPT = `<script type="module" src="http://localhost:3000/@vite/client"></script>
   <script type="module" src="http://localhost:3000/${constants.ENTRY}"></script>`;
