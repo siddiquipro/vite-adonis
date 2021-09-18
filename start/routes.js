@@ -3,11 +3,8 @@
 const Route = use("Route");
 const Env = use("Env");
 const Helpers = use("Helpers");
-const NODE_ENV = Env.get("NODE_ENV");
 
-console.log(NODE_ENV);
-
-const isProd = NODE_ENV != "development" ? true : false;
+const isProd = Env.get("NODE_ENV", process.env.NODE_ENV) != "development" ? true : false;
 
 let data = {
 	script: `<script type="module" src="http://localhost:3000/@vite/client"></script> <script type="module" src="http://localhost:3000/www/main.js"></script>`,
