@@ -5,7 +5,7 @@ const Env = use("Env");
 const Helpers = use("Helpers");
 
 Route.any("*", ({ view }) => {
-	const isProd = Env.get("NODE_ENV", process.env.NODE_ENV) == "development" ? true : false;
+	const isProd = Env.get("NODE_ENV", process.env.NODE_ENV) == "development" ? false : true;
 	let data = {
 		script: `<script type="module" src="http://localhost:3000/@vite/client"></script> <script type="module" src="http://localhost:3000/www/main.js"></script>`,
 		css: false,
