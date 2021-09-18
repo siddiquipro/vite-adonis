@@ -1,21 +1,23 @@
 const { hooks } = require("@adonisjs/ignitor");
 const path = require("path");
 
-const LOAD_MANIFEST = (filePath) => {
-	const fs = use("fs");
-	let manifest = null;
-	try {
-		if (fs.existsSync(filePath)) manifest = use(filePath);
-		else console.log(`${filePath} does not exist`);
-	} catch (err) {
-		manifest = null;
-		console.error(err);
-	}
-	return manifest;
-};
+// const LOAD_MANIFEST = (filePath) => {
+// 	const fs = use("fs");
+// 	let manifest = null;
+// 	try {
+// 		if (fs.existsSync(filePath)) manifest = use(filePath);
+// 		else console.log(`${filePath} does not exist`);
+// 	} catch (err) {
+// 		manifest = null;
+// 		console.error(err);
+// 	}
+// 	return manifest;
+// };
 
 hooks.after.providersBooted(async () => {
 	const View = use("View");
+	const Env = use("Env");
+	const Helpers = use("Helpers");
 
 	const constants = require(path.join(__dirname, "..", "constants.js"));
 
@@ -25,11 +27,19 @@ hooks.after.providersBooted(async () => {
 	let CSS = "";
 
 	const GET_MANIFEST = () => {
-		const manifest = LOAD_MANIFEST(path.join(__dirname, "..", "public", "build", "manifest.json"));
-		if (manifest) {
-			const manObj = manifest[constants.ENTRY];
-			SCRIPT = `<script type="module" src="/build/${manObj.file}"></script>`;
-			if (manObj.css && manObj.css.length > 0) CSS = `<link rel="stylesheet" href="/build/${manObj.css[0]}">`;
+		const node_env = Env.get("NODE_ENV", process.env.NODE_ENV);
+		if (node_env == "development") return false;
+
+		try {
+			const manifest = require(Helpers.publicPath("build/manifest.json"));
+			// const manifest = LOAD_MANIFEST(path.join(__dirname, "..", "public", "build", "manifest.json"));
+			if (manifest) {
+				const manObj = manifest[constants.ENTRY];
+				SCRIPT = `<script type="module" src="/build/${manObj.file}"></script>`;
+				if (manObj.css && manObj.css.length > 0) CSS = `<link rel="stylesheet" href="/build/${manObj.css[0]}">`;
+			}
+		} catch (error) {
+			console.log(error);
 		}
 	};
 
@@ -37,5 +47,9 @@ hooks.after.providersBooted(async () => {
 		GET_MANIFEST();
 		if (css) return CSS;
 		return SCRIPT;
+	});
+
+	View.global("PATH", (f) => {
+		return Helpers.publicPath(f);
 	});
 });
